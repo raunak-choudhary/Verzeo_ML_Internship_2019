@@ -1,0 +1,20 @@
+import pandas as pd
+from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+data = pd.read_csv('creditcard.csv')
+from warnings import simplefilter
+simplefilter(action='ignore', category=FutureWarning)
+features = ['Amount'] + ['V%d' % number for number in range(1, 29)]
+target = 'Class'
+X = data[features]
+y = data[target]
+model = LogisticRegression()
+splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=0)
+for train_indices, test_indices in splitter.split(X, y):
+    X_train, y_train = X.loc[train_indices], y.loc[train_indices]
+    X_test, _test = X.loc[test_indices], y.loc[test_indices]
+    normalized_values=(X-X.mean())/X.std()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    print(classification_report(y_test, y_pred))

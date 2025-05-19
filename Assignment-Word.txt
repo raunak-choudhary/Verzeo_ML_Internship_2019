@@ -1,0 +1,49 @@
+import nltk
+import pandas as pd
+nltk.download('punkt')
+nltk.download('stopwords')
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+data = """
+Do you know what separates humans from other living beings? Curiosity,
+Humans are curious.We have a collection of question on our pleasant past,
+beautiful present and bright future.We are curious to take challenges.
+So When we think about our Future a pic of Smart Gadgets comes in front of us. 
+We’ve been fascinated with gadgets that Function on a grander scale for decades
+which we usually see in Hollywood movies.So now the point comes, 
+‘Is it possible to do,what is the way to make our dreams real in future’.
+But in the past several years we’ve seen the True Potential of the IoT 
+which show as a path towards our dreams and open the way to future of technology.
+"""
+word_tokens=word_tokenize(data)
+sent_tokens = sent_tokenize(data)
+stop_words = set(stopwords.words('English')) 
+print(word_tokens)
+#print(sent_tokens)
+
+filtered_data = [i for i in word_tokens if not i in stop_words] 
+  
+filtered_data = [] 
+  
+for i in word_tokens: 
+    if i not in stop_words: 
+        filtered_data.append(i) 
+print(filtered_data) 
+
+paracount = dict()
+k=1
+for line in sent_tokens:
+    wordtokens = word_tokenize(line)
+    linecount = len(sent_tokens)
+    count = dict()
+    for word in wordtokens:
+        if word in count:
+            count[word] +=1
+        else:
+            count[word] = 1
+    paracount[k] = count
+    k+=1
+#print(paracount)
+pdf = pd.DataFrame(paracount)
+print(pdf)
