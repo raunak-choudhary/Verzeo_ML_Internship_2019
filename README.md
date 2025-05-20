@@ -37,3 +37,5 @@ The certification is verifiable via my LinkedIn profile:
   Machine Learning Intern at Verzeo  
   MTA Certified in Python Programming  
   [raunakchoudhary17@gmail.com](mailto:raunakchoudhary17@gmail.com)
+
+-----
